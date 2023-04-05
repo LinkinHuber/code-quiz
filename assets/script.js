@@ -19,8 +19,6 @@
 
 //7. need a way to then save the persons initials and their score
 
-
-
 // general layout to get the quiz started
 
 //user arrives at web page
@@ -36,4 +34,54 @@
     //if it was correct => move onto next question without subtracting time
 
     //if not correct => subtract time and move onto the next question
+
+    var q1 = {
+      q: "Whats your first name?",
+      a1: "Linkin",
+      a2: "Dennis",
+      a3: "Chad",
+      a4: "Dylan"
+    }
+
+    var q2 = {
+      q: "Whats your last name?",
+      a1: "Cool",
+      a2: "Awesome",
+      a3: "McMan",
+      a4: "Huber"
+    }
+
+    var qSelect = [q1, q2];
+    var startButton = document.querySelector(".button");
+    var secondsLeft = 10;
+    var timer = document.querySelector(".timer-count")
+
+
+    function startQuiz(){
     
+    }
+  
+    startButton.addEventListener("click", function(event){
+      event.preventDefault()
+      startQuiz()
+      startTimer()
+
+      console.log(startButton)
+  });
+
+
+  function startTimer(){
+    var countDown = setInterval(function(){
+      secondsLeft--;
+      timer.textContent = secondsLeft;
+      if(secondsLeft === 0){
+        gameOver()
+
+        console.log(countDown)
+      }
+    },1000)
+  }
+
+  function gameOver(){
+
+  }
