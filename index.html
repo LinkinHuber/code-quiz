@@ -6,32 +6,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding Quiz Challenge</title>
   <link rel="stylesheet" href="./assets/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <header class="header">
-    <nav class="nav">
-      <a href="#scoreboard">Scoreboard</a>
+  <header class='header'>
+    <nav class='nav'>
+      <a href='#scoreboard'>Scoreboard</a>
     </nav>
     
-    <div class= "card-timer">
-      <div class = "timer-text">
+    <div class= 'card-timer'>
+      <div class = 'timer-text'>
         <h3>Time Left</h3>
-      <div class="timer-count">10</div>
+      <div class='timer-count'>10</div>
     </div>
   </header>
 
-  <section class="section">
-    <div class="start-page">
-      <h1 class="quiz">Coding Quiz Challenge</h1>
-        <p class="about">
+    <div id='intro-page'>
+      <h1 class='quiz'>Coding Quiz Challenge</h1>
+        <p class='about'>
           Welcome to the "Coding Quiz Challenge" this is a timed quiz to test your knowledge of important coding concepts. You will be asked a series of multiple choice questions, answer them to your best ability before the time runs out. click on the "Start Quiz" button to begin...
         </p>
-      <button id="start" class="button">Start Quiz</button>
+      <button id='start' class='start-button'>Start Quiz</button>
     </div>
-  </section>
+  
+  <div id='qp-1' hidden>
+    <h2 class='title'>yo?</h2>
+    <div class='question-answers'>
+      <button id='correct' class='button'>a.</button>
+      <button id='answer' class='button'>b.</button>
+      <button id='answer' class='button'>c.</button>
+      <button id='answer' class='button'>d.</button>
+    </div>
+  </div>
 
-  <script src="./assets/script.js"></script>
+  <div id='qp-2' hidden>
+    <h2 class='title'>whats?</h2>
+    <div class='question-answers'>
+      <button id='answer' class='button'>a.</button>
+      <button id='answer' class='button'>b.</button>
+      <button id='correct' class='button'>c.</button>
+      <button id='answer' class='button'>d.</button>
+    </div>
+  </div>
+
+  <div id='qp-3' hidden>
+    <h2 class='title'>up?</h2>
+    <div class='question-answers'>
+      <button id='answer' class='button'>a.</button>
+      <button id='correct' class='button'>b.</button>
+      <button id='answer' class='button'>c.</button>
+      <button id='answer' class='button'>d.</button>
+    </div>
+  </div>
+
+  <div id='scoreboard' class='scoreboard' hidden>
+    <h2 class='score-title'>Final Score</h2>
+    <div class='score'>0</div>
+  </div>
+
+  <script src='./assets/script.js'></script>
 </body>
-</html>
+</html> 

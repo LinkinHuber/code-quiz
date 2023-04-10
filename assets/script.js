@@ -1,87 +1,108 @@
-//1. need an event listener to start the quiz via the press of a "button"
-
-//2. need a way to store all of the questions/answers... example
-  /*
-    {
-      name: "what is the best seafood?"
-      answers: [
-
-      ]
-    }
-  */
-//3. need a timer that counts down over the duration of the quiz
-
-//4. need a way to move onto the next question after a question is answered 
-
-//5. need a way to subtract time from the countdown if the question is answered wrong
-
-//6. need a way to stop the game after all the questions have been answered or the time ran out
-
-//7. need a way to then save the persons initials and their score
-
-// general layout to get the quiz started
-
-//user arrives at web page
-//click the start button
-  //first question appears
-  //timer starts
-
-  //listen for user to click on one of the answers
-
-//when an answer is clicked
-  //determine if the correct answer was clicked
-
-    //if it was correct => move onto next question without subtracting time
-
-    //if not correct => subtract time and move onto the next question
-
-    var q1 = {
-      q: "Whats your first name?",
-      a1: "Linkin",
-      a2: "Dennis",
-      a3: "Chad",
-      a4: "Dylan"
-    }
-
-    var q2 = {
-      q: "Whats your last name?",
-      a1: "Cool",
-      a2: "Awesome",
-      a3: "McMan",
-      a4: "Huber"
-    }
-
-    var qSelect = [q1, q2];
-    var startButton = document.querySelector(".button");
+    var startButton = document.querySelector('.start-button');
+    var timer = document.querySelector('.timer-count');
     var secondsLeft = 10;
-    var timer = document.querySelector(".timer-count")
+    var score = 0;
 
-
-    function startQuiz(){
+    var qp1Button = document.querySelector('#qp-1');
+    var qp2Button = document.querySelector('#qp-2');
+    var qp3Button = document.querySelector('#qp-3');
     
+
+    function hideStartPage() {
+      document.getElementById('intro-page').hidden = true;
     }
-  
-    startButton.addEventListener("click", function(event){
-      event.preventDefault()
-      startQuiz()
-      startTimer()
 
-      console.log(startButton)
-  });
+    function showQuestionPage1() {
+      document.getElementById('qp-1').hidden = false;
+    }
+    
+    function hideQuestionPage1() {
+      document.getElementById('qp-1').hidden = true;
+    }
+
+    function showQuestionPage2() {
+      document.getElementById('qp-2').hidden = false;
+    }
+   
+    function hideQuestionPage2() {
+      document.getElementById('qp-2').hidden = true;
+    }
+
+    function showQuestionPage3() {
+      document.getElementById('qp-3').hidden = false;
+    }
+
+    function hideQuestionPage3() {
+      document.getElementById('qp-3').hidden = true;
+    }
+    
+    function showScorePage() {
+      document.getElementById('scoreboard').hidden = false;
+    }
 
 
-  function startTimer(){
+      startButton.addEventListener('click', function(event){
+        event.preventDefault();
+          hideStartPage();
+          startTimer();
+          showQuestionPage1()
+          
+      });
+
+      qp1Button.addEventListener('click', function(event){
+        event.preventDefault();
+        hideQuestionPage1();
+        showQuestionPage2()
+      });
+        
+      qp2Button.addEventListener('click', function(event){
+        event.preventDefault();
+        hideQuestionPage2();
+        showQuestionPage3() 
+      });
+
+      qp3Button.addEventListener('click', function(event){
+        event.preventDefault();
+        hideQuestionPage3();
+        showScorePage() 
+      });
+      
+
+  function startTimer() {
     var countDown = setInterval(function(){
       secondsLeft--;
       timer.textContent = secondsLeft;
       if(secondsLeft === 0){
-        gameOver()
+        clearInterval(countDown);
+        hideQuestionPage1();
+        hideQuestionPage2();
+        hideQuestionPage3();
+        showScorePage()
 
-        console.log(countDown)
       }
     },1000)
   }
 
-  function gameOver(){
+
+  //1. need a way to figure out what answers are right or wrong
+
+  //2. need a way to keep track of the score and add points for right answers
+
+  //3. need a way to subtract time from the countdown if the question is answered wrong
+
+  //4. need a way to then save the persons initials and their score
+  
+
+  function rightWrongAnswers() {
+   
+  }
+
+
+  function addPoints() {
+
+  }
+
+
+  function subtractTime() {
 
   }
