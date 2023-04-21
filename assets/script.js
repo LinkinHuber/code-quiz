@@ -1,51 +1,63 @@
-  var btnStartEl = document.querySelector('.start-button');
+  var startButton = document.querySelector('.start-button');
   var questionEl = document.getElementById('question');
   var choiceButtons = document.getElementById('question-answers');
   var timer = document.querySelector('.timer-count');
-  var secondsLeft = 10;
+  var secondsLeft = 15;
   var score = 0;
-  var timeleft;
   var gameover;
-  var arrOfQuestions = [];
+  var questionsAnswers = [];
   var QuestionIndex = 0;
 
-
-  var questions = [
-    { questionTitle: 'What is my first name?', 
-      rightAnswr: '1. Linkin', 
-      choices: [{choice: '1. Linkin '}, {choice: '2. Chad'}, {choice: '3. Dylan'}, {choice: '4. Dennis'}]
+  var questionsAnswers = [
+    { q: 'What does "JS" stand for?', 
+      a: '1. JavaScript', 
+      choices: [{choice: '1. JavaScript '}, {choice: '2. '}, {choice: '3. '}, {choice: '4. '}]
     },
-    { q: 'How old am I?', 
-      a: '2. 20', 
-      choices: [{choice: '1. 19'}, {choice: '2. 20'}, {choice: '3. 18'}, {choice: '4. 21'}]
+    { q: 'What does "CSS" stand for?', 
+      a: '3. Cascading Style Sheets', 
+      choices: [{choice: '1. '}, {choice: '2. '}, {choice: '3. Cascading Style Sheets'}, {choice: '4. '}]
+    },
+    { q: 'What does "HTML" stand for?', 
+      a: '2. Hypertext Markup Language', 
+      choices: [{choice: '1. '}, {choice: '2. Hypertext Markup Language'}, {choice: '3. '}, {choice: '4. '}]
     },
   ];
 
+//deals with the countdown timer
+function startTimer() {
+  var countDown = setInterval(function(){
+    secondsLeft--;
+    timer.textContent = secondsLeft;
+    if(secondsLeft === 0){
+      clearInterval(countDown);
+    }
+  },1000);
+}
 
-//hides intro page and shows the question page. The first question is selected in a random order. 
-var startQuiz = function() {
+//hides intro page and shows the question page, the questions are then put in a random order. 
+function startQuiz() {
     document.getElementById('intro-page').hidden = true;
     document.getElementById('question-container').hidden = false;
-    arrOfQuestions = questions.sort(() => Math.random() - 0.5)
+    questionsAnswers.sort(() => Math.random() - 0.5)
     startTimer()
     setQuestion()
   }
 
-//set next question for quiz
-var setQuestion = function() {
+//displays the next question
+function setQuestion() {
     resetAnswers()
-    displayQuestion(arrOfQuestions[QuestionIndex])
+    displayQuestion(questionsAnswers[QuestionIndex])
 }
 
-//remove answer buttons
-var resetAnswers = function() {
+//removes all the answer buttons
+function resetAnswers() {
     while (choiceButtons.firstChild) {
-        choiceButtons.removeChild(choiceButtons.firstChild)
+        choiceButtons.removeChild(choiceButtons.firstChild);
     };
 };
 
-//display question information (including answer buttons)
-var displayQuestion = function(index) {
+//displays question information (including answer buttons)
+function displayQuestion(index) {
     questionEl.innerText = index.q
     for (var i = 0; i < index.choices.length; i++) {
         var answerbutton = document.createElement('button')
@@ -58,34 +70,31 @@ var displayQuestion = function(index) {
     };
 
 //check if answer is correct    
-var checkAnswr = function(event) {
-    var chosenAnswr = event.target
-        if (arrOfQuestions[QuestionIndex].a === chosenAnswr.innerText){
+function checkAnswr(event) {
+    var selectedanswer = event.target
+        if (questionsAnswers[QuestionIndex].a === selectedanswer.innerText){
+          console.log('yes');
             score = score + 1
         }
-
         else {
-          timeleft = timeleft - 2;
+          console.log('no');
+          secondsLeft = secondsLeft -2;
       };
 
     //go to next question, check if there is more questions
       QuestionIndex++
-        if  (arrOfQuestions.length > QuestionIndex + 1) {
+        if  (questionsAnswers.length > QuestionIndex + 0) {
             setQuestion()
         }   
         else {
-           gameover = 'true';
+          endGame()
             }
 }
 
-function startTimer() {
-  var countDown = setInterval(function(){
-    secondsLeft--;
-    timer.textContent = secondsLeft;
-    if(secondsLeft === 0){
-      clearInterval(countDown);
-    }
-  },1000);
-}
+function endGame() {
+    document.getElementById('question-container').hidden = true;
+    document.getElementById('scoreboard').hidden = false;
+  }
 
-btnStartEl.addEventListener("click", startQuiz)
+startButton.addEventListener("click", startQuiz)
+
