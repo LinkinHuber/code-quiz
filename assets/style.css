@@ -2,12 +2,6 @@ body {
   font-family: 'Bebas Neue', cursive;
 }
 
-#nav {
-  font-size: 1.5rem;
-  padding: 5px;
-  text-align: center;
-}
-
 #card-timer {
   text-align: center;
 }
@@ -31,6 +25,7 @@ body {
 #scoreboard {
   padding-top: 200px;
   margin: 0 auto;
+  justify-content: center;
   text-align: center;
   max-width: 30%;
   font-size: 1.5rem;
