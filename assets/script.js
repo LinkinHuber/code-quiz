@@ -4,7 +4,7 @@ var quizButtons = document.getElementById('question-answers');
 var timer = document.querySelector('.timer-count');
 var questionsAnswers = [];
 var QuestionIndex = 0;
-var secondsLeft = 10;
+var secondsLeft = 15;
 
 var scoreboardEl = document.getElementById('scoreboard');
 var scores = JSON.parse(localStorage.getItem('scores')) || [];
@@ -14,15 +14,17 @@ var initials;
 var questionsAnswers = [
   { q: 'What does "JS" stand for?', 
     a: '1. JavaScript', 
-    choices: [{choice: '1. JavaScript '}, {choice: '2. '}, {choice: '3. '}, {choice: '4. '}]
+    choices: [{choice: '1. JavaScript '}, {choice: '2.JavScrpt '}, {choice: '3. JavaSpt '}, {choice: '4.JaSipt '}]
   },
   { q: 'What does "CSS" stand for?', 
     a: '3. Cascading Style Sheets', 
-    choices: [{choice: '1. '}, {choice: '2. '}, {choice: '3. Cascading Style Sheets'}, {choice: '4. '}]
+    choices: [{choice: '1. Casca Syle Seets '}, {choice: '2. Casing Style Sets '}, {choice: '3. Cascading Style Sheets'}, 
+    {choice: '4. Cascad Ste Shs'}]
   },
   { q: 'What does "HTML" stand for?', 
     a: '2. Hypertext Markup Language', 
-    choices: [{choice: '1. '}, {choice: '2. Hypertext Markup Language'}, {choice: '3. '}, {choice: '4. '}]
+    choices: [{choice: '1. Hyper Mark Lang'}, {choice: '2. Hypertext Markup Language'}, {choice: '3. Herex Mkup Luage'}, 
+    {choice: '4. Hypertext Mark Langua'}]
   },
 ];
 
@@ -129,7 +131,7 @@ function scoreboard() {
     pEl.textContent = leaderboard[i].objInitials + " " + leaderboard[i].objScore + "points";
     divEl.append(pEl);
   }
-  //localStorage.clear();
+  localStorage.clear();
 };
 
 //event listener for start button on intro page 
