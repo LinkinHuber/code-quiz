@@ -6,7 +6,6 @@ var questionsAnswers = [];
 var QuestionIndex = 0;
 var secondsLeft = 15;
 
-var scoreboardEl = document.getElementById('scoreboard');
 var scores = JSON.parse(localStorage.getItem('scores')) || [];
 var initials;
   
@@ -35,8 +34,11 @@ function startTimer() {
     timer.textContent = secondsLeft;
     if(secondsLeft === 0) {
       clearInterval(countDown);
+      document.getElementById('question-container').hidden = true;
+      document.getElementById('scoreboard').hidden = false;
     };
   },1000);
+  scoreboard();
 };
 
 //hides intro page and shows the question page, the questions are then put in a random order. 
@@ -45,30 +47,30 @@ function startQuiz() {
   document.getElementById('question-container').hidden = false;
   questionsAnswers.sort(() => Math.random() - 0.5);
   startTimer();
-  setQuestion();
+  pullQuestion();
 };
 
 //displays question information (including answer buttons)
-function displayQuestion(index) {
+function createQuestion(index) {
   questionContainer.innerText = index.q;
   for (var i = 0; i < index.choices.length; i++) {
     var answerbutton = document.createElement('button');
       answerbutton.innerText = index.choices[i].choice;
       answerbutton.classList.add('btn');
       answerbutton.classList.add('answerbtn');
-      answerbutton.addEventListener('click', checkAnswr);
+      answerbutton.addEventListener('click', checkSelectedAnswer);
       quizButtons.appendChild(answerbutton);
   };
 };
 
 //displays the next question
-function setQuestion() {
-  resetAnswers();
-  displayQuestion(questionsAnswers[QuestionIndex]);
+function pullQuestion() {
+  questionReset();
+  createQuestion(questionsAnswers[QuestionIndex]);
 };
 
 //checks if the answer is right or wrong and will then subtract time if its wrong  
-function checkAnswr(event) {
+function checkSelectedAnswer(event) {
   var selectedanswer = event.target;
     if (questionsAnswers[QuestionIndex].a === selectedanswer.innerText){
       console.log('yes');
@@ -81,7 +83,7 @@ function checkAnswr(event) {
 //goes to next question after a question is answered and checks if there are more questions
     QuestionIndex++
       if  (questionsAnswers.length > QuestionIndex + 0) {
-          setQuestion();
+          pullQuestion();
       }   
       else {
         endGame();
@@ -89,27 +91,27 @@ function checkAnswr(event) {
 };
 
 //removes all of the answer buttons
-function resetAnswers() {
+function questionReset() {
   while (quizButtons.firstChild) {
       quizButtons.removeChild(quizButtons.firstChild);
   };
 };
 
-//when game is over it hides the question page and the timer then makes the score page visible
+//when the game is over it hides the question page and the timer, it then makes the score page visible
 function endGame() {
     document.getElementById('card-timer').hidden = true;
     document.getElementById('question-container').hidden = true;
     document.getElementById('scoreboard').hidden = false;
-    getUserInitials();
+    getInitials();
 };
 
-//
-function getUserInitials() {
-  initials = prompt("Game Over! Enter Your Initials");
+//makes a prompt appear asking for your initials after you answer all of the questions
+function getInitials() {
+  initials = prompt("game over, enter your initials");
   addScoreToLocalStorage();
 };
 
-//
+//your initials and your final score(seconds left) are then saved to local storage
 function addScoreToLocalStorage() {
   scores.push({
     objInitials: initials,
@@ -119,19 +121,18 @@ function addScoreToLocalStorage() {
   scoreboard();
 };
 
-//
+//this function pulls all of the saved scores out of local storage and displays them on the screen at the end of the game  
 function scoreboard() {
   let i = 0;
   while (i < scores.length-1) {
     i++;
-    var divEl = document.getElementById("scoreboard");
-    var pEl = document.createElement("p");
-    var leaderboard = JSON.parse(localStorage.getItem("scores"));
-    console.log(leaderboard);
-    pEl.textContent = leaderboard[i].objInitials + " " + leaderboard[i].objScore + "points";
-    divEl.append(pEl);
+    var scoreboard = document.getElementById("scoreboard");
+    var newP = document.createElement("p");
+    var topScores = JSON.parse(localStorage.getItem("scores"));
+    console.log(topScores);
+    newP.textContent = topScores[i].objInitials + " " + topScores[i].objScore + "points";
+    scoreboard.append(newP);
   }
-  localStorage.clear();
 };
 
 //event listener for start button on intro page 
